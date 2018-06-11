@@ -23,7 +23,8 @@ data_sample_submission = pd.read_csv('../data/sample_submission.csv')
 data_application_train.columns = [str.lower(x) for x in data_application_train.columns]
 data_application_test.columns = [str.lower(x) for x in data_application_test.columns]
 
-data_application_train.head()
+#data_application_train.head()
+
 app_train = pd.get_dummies(data_application_train)
 
 app_train = app_train.dropna()
@@ -38,7 +39,8 @@ X_train, X_test, y_train, y_test = train_test_split(app_train, target, test_size
 regleg = LogisticRegression()
 pred = regleg.fit(X_train,y_train).predict_proba(X_test)
 
-plt.show(skplt.metrics.plot_roc(y_test, pred))
+plot = (skplt.metrics.plot_roc(y_test, pred))
+plt.savefig('roc.png')
 print(roc_auc_score(y_test, pred[:,1]))
 
 
